@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Twatt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            
+        </nav>
+    </header>
+    <div class = "content">
+        <!-- <ul> -->
+            <div class="name"></div>
+            <div class="tweet"></div>
+        <!-- </ul> -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- <script src="main.js"></script> -->
+    <script>
+        $.ajax({
+            url:'http://localhost:7000/twatt',
+            method: 'GET',
+            success: (response) => {
+                let tweet = JSON.parse(response)
+                for (let i = 0; i < tweet.length; i++){
+                    console.log(tweet[i])
+                    // $('.name').append(``)
+                    $('.tweet').append(`<li>${tweet[i].user.name} @${tweet[i].user.screen_name}
+                                            ${tweet[i].text}</li>`)
+                }
+            }
+        })
+
+        // $.ajax({
+        //     url:'http://localhost:7000/twatt',
+        //     method: 'POST',
+        //     dataType: 'json'
+        // })
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+body {
+    background: rgb(230,236,240)
+}
+
+.content {
+    background: rgb(255,251,251);
+    margin-left: 20%;
+    margin-right:20%;
+}
+
+.name {
+    font-family: Helvetica, Arial, sans-serif;
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+.inside {
+    width:100%;
+}
+
+li {
+    display: flex;
+    font-family: Helvetica, Arial, sans-serif;
+    margin-right: 2em;
+    margin-left: 2em;
+    padding:10px 10px;
+    border: 0.5px rgba(0, 0, 0, 0.226) solid
+}
