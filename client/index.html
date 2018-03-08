@@ -6,41 +6,90 @@
     <title>Twatt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 </head>
 <body>
     <header>
-        <nav>
-            
+        <nav class="navigation">
+            <ul>
+                <a href='#'><li>TWITTER</li></a>
+                <a class='right' href="#"><li>FACEBOOK</li></a>              
+            </ul>
         </nav>
     </header>
-    <div class = "content">
-        <!-- <ul> -->
-            <div class="name"></div>
-            <div class="tweet"></div>
-        <!-- </ul> -->
+    <div class="compose-content">
+            <input class="tweet_now" type="text" placeholder="Compose a new tweet..">
+            <i class="fab fa-twitter"></i>
+    </div>
+    <div class = "content" id="body-content">
+            <div class= "tweets">
+                <div class = "tweet_border">
+                    <div class="name">
+                        Harvard Biz Review @HarvardBiz
+                    </div>
+                    <div class="tweet_text">
+                        <li>Are you making the most of your HBR subscription? Take advantage of all your benefits by registering for an account… https://t.co/KxIKyIGU0Z</li>
+                    </div>
+                </div>
+                <div class = "tweet_border">
+                    <div class="name">
+                        BBC Indonesia @BBCIndonesia
+                    </div>
+                    <div class="tweet_text">
+                        <li>Pemain timnas sepakbola perempuan Afghanistan: dalam ancaman 'hidup dan mati' https://t.co/Ov6xzOzOhc https://t.co/kf2olenqTd</li>
+                    </div>
+                </div>
+                <div class = "tweet_border">
+                    <div class="name">
+                        BANDUNG @infobdg
+                    </div>
+                    <div class="tweet_text">
+                        <li>Taruwit udah nonton film-film baru apa nih di Bioskop? Kalau gak ada pilihannya bisa reply tweet ini ya!</li>
+                    </div>
+                </div>
+            </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <!-- <script src="main.js"></script> -->
+    <script src="main.js"></script>
     <script>
-        $.ajax({
-            url:'http://localhost:7000/twatt',
-            method: 'GET',
-            success: (response) => {
-                let tweet = JSON.parse(response)
-                for (let i = 0; i < tweet.length; i++){
-                    console.log(tweet[i])
-                    // $('.name').append(``)
-                    $('.tweet').append(`<li>${tweet[i].user.name} @${tweet[i].user.screen_name}
-                                            ${tweet[i].text}</li>`)
-                }
+        const gettimeline = () => {
+            $.ajax({
+                url:'http://localhost:7000/twatt',
+                method: 'GET',
+                success: (response) => {
+                    let tweet = JSON.parse(response)
+                    for (let i = 0; i < tweet.length; i++){
+                        console.log(tweet[i])
+                        $('.tweets').append(`   <div class = "tweet_border">
+                            <div class="name"><a href="https://twitter.com/${tweet[i].user.screen_name}"><img src=${tweet[i].user.profile_image_url} height="15" width="15"> ${tweet[i].user.name} @${tweet[i].user.screen_name}</a></div>
+                            <div class= "tweet_text"><li>${tweet[i].text}</li></div>
+                            </div>`)
+                        }
+                    }
+                })
             }
+            
+        $(document).ready(function(){
+            gettimeline()
         })
 
-        // $.ajax({
-        //     url:'http://localhost:7000/twatt',
-        //     method: 'POST',
-        //     dataType: 'json'
-        // })
+        $(".tweet_now").keypress(function (e) {
+            let key = e.which
+            if (key === 13){
+                // console.log($())
+                $.ajax({
+                    url:'http://localhost:7000/twatt',
+                    type: 'POST',
+                    data: {status: $(".tweet_now").val()},
+                    success: (response) => {
+                        console.log(response)
+                        $(".tweets").empty()
+                        gettimeline()
+                        $(".tweet_now").val('')
+                    },
+                })
+            }
+        })
     </script>
 </body>
 </html>

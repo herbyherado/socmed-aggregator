@@ -1,14 +1,54 @@
 body {
-    background: rgb(230,236,240)
+    background: url("fleck-white.png"), rgba(34, 34, 34, 0.802)
 }
-
+header {
+    background-color: rgba(25, 25, 25, 0.798);
+    border-bottom: 1px solid rgba(61, 62, 62, 0.374);
+    box-shadow: 1px 1px 6px 0px #2e445fdf ;
+    /* position: 'fixed' will always be on top of page - this is mainly used for nav bar */
+    position: fixed;
+    top: 0.01em; 
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10; 
+  }
+  ul {
+    margin: 0px auto;
+    padding: 1px;
+    text-align: center;
+  }
+  li {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bolder ;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    display: inline-block;
+    width: auto;
+    padding: 8px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.798);
+  }
+  li:hover {
+    color: rgb(245, 75, 129);
+    transition: 0.3s;
+  }
 .content {
+    display:relative;
+    margin-top: 2em;
     background: rgb(255,251,251);
     margin-left: 20%;
     margin-right:20%;
 }
-
+.compose-content{
+    display: relative;
+    margin-top:4em;
+    background: rgb(255,251,251);
+    margin-left: 20%;
+    margin-right:20%;
+}
 .name {
+    padding-top:1em;
     font-family: Helvetica, Arial, sans-serif;
     margin-right: 2em;
     margin-left: 2em;
@@ -18,11 +58,30 @@ body {
     width:100%;
 }
 
-li {
+.tweet_border {
+    /* border: 0.3px rgba(0, 0, 0, 0.226) solid; */
+    /* margin-right: 2em; */
+    /* margin-left: 2em; */
+}
+.tweet_border:hover {
+   background-color: rgba(204, 204, 204, 0.227);
+   transition: 0.3s
+}
+
+.tweets .tweet_text li{
     display: flex;
     font-family: Helvetica, Arial, sans-serif;
-    margin-right: 2em;
-    margin-left: 2em;
-    padding:10px 10px;
-    border: 0.5px rgba(0, 0, 0, 0.226) solid
+    font-weight: 100;
+    /* padding:10px 10px; */
+    /* border: 0.5px rgba(0, 0, 0, 0.226) solid; */
+    color: black;
 }
+
+.fa-twitter {
+    color: rgb(128, 208, 235);
+  }
+
+  a {
+      text-decoration: none;
+      color:black;
+  }
