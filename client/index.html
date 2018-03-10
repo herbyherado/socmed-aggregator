@@ -13,7 +13,8 @@
         <nav class="navigation">
             <ul>
                 <a href='#'><li>TWITTER</li></a>
-                <a class='right' href="#"><li>FACEBOOK</li></a>              
+                <a class='right' href="#"><li>FACEBOOK</li></a>      
+                <input class="search" type="text" placeholder="Search..">        
             </ul>
         </nav>
     </header>
@@ -23,7 +24,8 @@
     </div>
     <div class = "content" id="body-content">
             <div class= "tweets">
-                <div class = "tweet_border">
+                <!-- DUMMY CONTENT FOR CSS TESTING -->
+                <!-- <div class = "tweet_border">
                     <div class="name">
                         Harvard Biz Review @HarvardBiz
                     </div>
@@ -46,7 +48,7 @@
                     <div class="tweet_text">
                         <li>Taruwit udah nonton film-film baru apa nih di Bioskop? Kalau gak ada pilihannya bisa reply tweet ini ya!</li>
                     </div>
-                </div>
+                </div> -->
             </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -59,7 +61,6 @@
                 success: (response) => {
                     let tweet = JSON.parse(response)
                     for (let i = 0; i < tweet.length; i++){
-                        console.log(tweet[i])
                         $('.tweets').append(`   <div class = "tweet_border">
                             <div class="name"><a href="https://twitter.com/${tweet[i].user.screen_name}"><img src=${tweet[i].user.profile_image_url} height="15" width="15"> ${tweet[i].user.name} @${tweet[i].user.screen_name}</a></div>
                             <div class= "tweet_text"><li>${tweet[i].text}</li></div>
@@ -76,16 +77,35 @@
         $(".tweet_now").keypress(function (e) {
             let key = e.which
             if (key === 13){
-                // console.log($())
                 $.ajax({
                     url:'http://localhost:7000/twatt',
                     type: 'POST',
                     data: {status: $(".tweet_now").val()},
                     success: (response) => {
-                        console.log(response)
                         $(".tweets").empty()
                         gettimeline()
                         $(".tweet_now").val('')
+                    },
+                })
+            }
+        })
+
+        $(".search").keypress(function (e) {
+            let key = e.which
+            if (key === 13){
+                $.ajax({
+                    url:'http://localhost:7000/twatt/'+ $('.search').val(),
+                    type: 'GET',
+                    success: (response) => {
+                        $(".tweets").empty()
+                        let tweets = JSON.parse(response)
+                        tweets.statuses.forEach(tweet => {
+                            $('.tweets').append(`   <div class = "tweet_border">
+                                <div class="name"><a href="https://twitter.com/${tweet.user.screen_name}"><img src=${tweet.user.profile_image_url} height="15" width="15"> ${tweet.user.name} @${tweet.user.screen_name}</a></div>
+                                <div class= "tweet_text"><li>${tweet.text}</li></div>
+                                </div>`)
+                        });
+                        $(".search").val('')
                     },
                 })
             }

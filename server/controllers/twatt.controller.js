@@ -34,6 +34,7 @@ const oauth = new OAuth.OAuth(
         });    
     },
     search: (req, res) => {
+        console.log(req)
         oauth.get(
         'https://api.twitter.com/1.1/search/tweets.json?q=' + req.params.search,
         process.env.TOKEN, //test user token 
